@@ -1,0 +1,5 @@
+https://staticriot.s3.amazonaws.com/: 710
+https://riotfiles.s3.amazonaws.com/: 461
+https://riot-uploads.s3.amazonaws.com/: 249250
+https://riot-sandbox.s3.amazonaws.com/: 2335
+https://priot.s3.amazonaws.com/: 8643
