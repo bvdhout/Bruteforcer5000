@@ -1,5 +1,54 @@
-https://staticriot.s3.amazonaws.com/: 710
-https://riotfiles.s3.amazonaws.com/: 461
-https://riot-uploads.s3.amazonaws.com/: 249250
-https://riot-sandbox.s3.amazonaws.com/: 2335
-https://priot.s3.amazonaws.com/: 8643
+https://bkprod.atlassian.net
+https://combk.atlassian.net
+https://bkmedia.atlassian.net
+https://bkdev.atlassian.net
+https://bkweb.atlassian.net
+https://eubk.atlassian.net
+https://marketing-bk.atlassian.net
+https://bkin.atlassian.net
+https://bkpro.atlassian.net
+https://bk-it.atlassian.net
+https://bkphotos.atlassian.net
+https://bkat.atlassian.net
+https://pbk.atlassian.net
+https://bkp.atlassian.net
+https://project-bk.atlassian.net
+https://bkstudio.atlassian.net
+https://uibk.atlassian.net
+https://bkpt.atlassian.net
+https://bkws.atlassian.net
+https://bkrs.atlassian.net
+https://bk-projects.atlassian.net
+https://bkid.atlassian.net
+https://bkis.atlassian.net
+https://bktest2.atlassian.net
+https://bkpoc.atlassian.net
+https://pocbk.atlassian.net
+https://bkfi.atlassian.net
+https://bk-mobile.atlassian.net
+https://bka.atlassian.net
+https://vbk.atlassian.net
+https://sbk.atlassian.net
+https://abk.atlassian.net
+https://hkbk.atlassian.net
+https://bkc.atlassian.net
+https://nubk.atlassian.net
+https://bk-international.atlassian.net
+https://dbk.atlassian.net
+https://bk-solutions.atlassian.net
+https://bksolutions.atlassian.net
+https://bkd.atlassian.net
+https://robk.atlassian.net
+https://bk-pm.atlassian.net
+https://ibk.atlassian.net
+https://bki.atlassian.net
+https://ebk.atlassian.net
+https://bke.atlassian.net
+https://bkone.atlassian.net
+https://mbk.atlassian.net
+https://bkm.atlassian.net
+https://bkgt.atlassian.net
+https://bkcompany.atlassian.net
+https://gtbk.atlassian.net
+https://bktechnology.atlassian.net
+https://bk-team.atlassian.net

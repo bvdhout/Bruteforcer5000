@@ -1,1 +1,2 @@
 https://{}.s3.amazonaws.com/
+https://{}.storage.googleapis.com/
