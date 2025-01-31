@@ -49,7 +49,7 @@ def checkBases(bucket_name, base, root, resultLabel):
     return checked, results, 
 
 
-def openSubScanner(): # die van enzo is superieur dit is simpelweg een kleine variant
+def openSubScanner(): # die van enzo is superieur dit is simpelweg een kleine variant (ik wordt niet onder druk gezet om dit te zeggen)
 
     def subScan(): 
 

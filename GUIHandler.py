@@ -8,7 +8,7 @@ textcolor = "Yellow"
 slack_base = "https://{}.slack.com" 
 atla_base = "https://{}.atlassian.net"
 
-def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variations):
+def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variations, currentChecked, checked):
     root = tk.Tk()
     root.title("WEB TOOLS")
 
@@ -25,8 +25,9 @@ def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variat
     settings.add_command(label="search atlassian",command=lambda:searchCustom([atla_base], maxthreads, keywords, bucket_variations))
     settings.add_command(label="search custom", command=lambda:searchCustom([customBase.get()], maxthreads, keywords, bucket_variations))
 
-    file.add_command(label="Subscan", command=webtools.openSubScanner) 
-    file.add_command(label="Exit", command=root.quit)
+    file.add_command(label="subscan", command=webtools.openSubScanner) 
+    file.add_command(label="plot graph", command = lambda:plotGraph(currentChecked, keystring, checked))
+    file.add_command(label="exit", command=root.quit)
 
     menubar.add_cascade(label="settings", menu=file) 
     menubar.add_cascade(label="search", menu=settings)
