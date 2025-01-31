@@ -37,8 +37,6 @@ slack_base = "https://{}.slack.com"
 atla_base = "https://{}.atlassian.net"
 
 def loadVariations(varations2, word):
-    bucket_variations.append(word)
-
     for variation in varations2:
         bucket_variations.append(word+variation)
         bucket_variations.append(variation+word)
@@ -78,10 +76,10 @@ bases = open("./bases.txt").read().split()
 def check_s3_bucket(bucket_name):
     global currentChecked
 
+    currentChecked += len(bases)
+
     for base in bases:
         t2 = threading.Thread(target=checkBases, args=(bucket_name, base))
-
-        currentChecked += len(bases)
 
         t2.start()
 
@@ -122,10 +120,10 @@ def check_custom(custom_name):
 
 def search():
     loadKeywords()
-    threadlimit = maxthreads.get() if maxthreads.get().isdigit() else 100
+    threadlimit = int(maxthreads.get()) if maxthreads.get().isdigit() else 250
 
     for bucket in bucket_variations:
-        while threading.active_count() > threadlimit:
+        while int(threading.active_count()) > threadlimit:
             threadsLabel.config(text=f"THREADS: {threading.active_count()}")
             checkedLabel.config(text=f"SCANNED: {currentChecked}")
             root.update()
@@ -140,7 +138,7 @@ def search():
 
 def searchSlack():
     loadKeywords()
-    threadlimit = maxthreads.get() if maxthreads.get().isdigit() else 100
+    threadlimit = int(maxthreads.get()) if maxthreads.get().isdigit() else 100
 
     for slack in bucket_variations:
         while threading.active_count() > threadlimit:
@@ -157,7 +155,7 @@ def searchSlack():
 
 def searchAtlassian():
     loadKeywords()
-    threadlimit = maxthreads.get() if maxthreads.get().isdigit() else 100
+    threadlimit = int(maxthreads.get()) if maxthreads.get().isdigit() else 100
 
     for atla in bucket_variations:
         while threading.active_count() > threadlimit:
@@ -174,7 +172,7 @@ def searchAtlassian():
 
 def searchCustom():
     loadKeywords()
-    threadlimit = maxthreads.get() if maxthreads.get().isdigit() else 100
+    threadlimit = int(maxthreads.get()) if maxthreads.get().isdigit() else 100
 
     for custom in bucket_variations:
         while threading.active_count() > threadlimit:
@@ -229,6 +227,7 @@ checkedLabel.pack()
 
 tk.Label(root,text="Max Threads", bg=bgcolor, fg=textcolor).pack()
 maxthreads = tk.Entry(root,bg=bgcolor, fg=textcolor)
+maxthreads.insert(0, "100")
 maxthreads.pack()
 
 resultLabel = tk.Label(root, text="RESULTS: ", bg=bgcolor, fg=textcolor)
