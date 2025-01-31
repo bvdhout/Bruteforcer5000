@@ -1,0 +1,155 @@
+{
+    "movies": [
+        {
+            "name": "batman",
+            "bg": "black",
+            "fg": "yellow"
+        },
+        {
+            "name": "barbie",
+            "bg": "plum1",
+            "fg": "deep pink"
+        },
+        {
+            "name": "oppenheimer",
+            "bg": "peach puff",
+            "fg": "tan4"
+        }
+    ],
+    "games": [
+        {
+            "name": "minecraft",
+            "bg": "forest green",
+            "fg": "saddle brown"
+        },
+        {
+            "name": "zelda",
+            "bg": "dark green",
+            "fg": "gold"
+        },
+        {
+            "name": "mario",
+            "bg": "red3",
+            "fg": "blue2"
+        }
+    ],
+    "classic": [
+        {
+            "name": "light",
+            "bg": "white",
+            "fg": "black"
+        },
+        {
+            "name": "dark",
+            "bg": "black",
+            "fg": "white"
+        },
+        {
+            "name": "blue",
+            "bg": "dodgerblue4",
+            "fg": "black"
+        }
+    ],
+    "cartoons": [
+        {
+            "name": "spongebob",
+            "bg": "yellow",
+            "fg": "blue"
+        },
+        {
+            "name": "tom and jerry",
+            "bg": "gray",
+            "fg": "orange"
+        },
+        {
+            "name": "fairly odd parents",
+            "bg": "medium purple",
+            "fg": "spring green"
+        }
+    ],
+    "sci-fi": [
+        {
+            "name": "dune",
+            "bg": "tan",
+            "fg": "sienna"
+        },
+        {
+            "name": "matrix",
+            "bg": "black",
+            "fg": "lime green"
+        },
+        {
+            "name": "tron",
+            "bg": "dark slate gray",
+            "fg": "deep sky blue"
+        }
+    ],
+    "food": [
+        {
+            "name": "strawberry",
+            "bg": "red",
+            "fg": "green"
+        },
+        {
+            "name": "chocolate",
+            "bg": "sienna",
+            "fg": "bisque"
+        },
+        {
+            "name": "cottoncandy",
+            "bg": "light pink",
+            "fg": "deep sky blue"
+        }
+    ],
+    "mythical": [
+        {
+            "name": "dragon",
+            "bg": "firebrick",
+            "fg": "gold"
+        },
+        {
+            "name": "phoenix",
+            "bg": "darkorange",
+            "fg": "yellow"
+        },
+        {
+            "name": "unicorn",
+            "bg": "lavender",
+            "fg": "orchid1"
+        }
+    ],
+    "underwater": [
+        {
+            "name": "coral reef",
+            "bg": "turquoise",
+            "fg": "coral"
+        },
+        {
+            "name": "deep sea",
+            "bg": "midnight blue",
+            "fg": "light sea green"
+        },
+        {
+            "name": "ocean sunset",
+            "bg": "indian red",
+            "fg": "light cyan"
+        }
+    ],
+    "gothic": [
+        {
+            "name": "victorian gothic",
+            "bg": "black",
+            "fg": "dark red"
+        },
+        {
+            "name": "haunted mansion",
+            "bg": "gray",
+            "fg": "snow"
+        },
+        {
+            "name": "dark forest",
+            "bg": "forest green",
+            "fg": "dark gray"
+        }
+    ]
+}

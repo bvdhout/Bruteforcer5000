@@ -10,9 +10,6 @@ result = ""
 resultList = []
 checked = []
 
-bgcolor = "black"
-textcolor = "Yellow"
-
 def loadVariations(varations, word, bucket_variations):
     for variation in varations:
         bucket_variations.append(word+variation)
@@ -49,8 +46,7 @@ def checkBases(bucket_name, base, root, resultLabel):
     return checked, results, 
 
 
-def openSubScanner(): # die van enzo is superieur dit is simpelweg een kleine variant (ik wordt niet onder druk gezet om dit te zeggen)
-
+def openSubScanner(bgcolor,textcolor): # die van enzo is superieur dit is simpelweg een kleine variant (ik wordt niet onder druk gezet om dit te zeggen)
     def subScan(): 
 
         global result
