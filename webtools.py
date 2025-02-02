@@ -17,18 +17,24 @@ def loadVariations(varations, word, bucket_variations):
         bucket_variations.append(word+"-"+variation)
         bucket_variations.append(variation+"-"+word)
 
-def checkBases(bucket_name, base, root, resultLabel):
+def checkBases(bucket_name, base, root, foundlabel):
     global result
 
     url = base.format(bucket_name)
-    response = requests.get(url)
-
-    checked = []
-    resultList = []
-    result
 
     checked.append(len(resultList))
     print(url+"\n")
+    
+    try:
+        response = requests.get(url, timeout=8)  # 5 seconds timeout
+        response.raise_for_status()  # Raise HTTPError for bad responses (4xx and 5xx)
+    except requests.exceptions.Timeout:
+        print("Request timed out.")
+
+        return
+    except requests.exceptions.RequestException as e:
+        return
+
     if response.status_code == 200:
         print(f"[+] Public Bucket Found: {url}")
         results.write(f"{url}\n")
@@ -36,14 +42,28 @@ def checkBases(bucket_name, base, root, resultLabel):
         
         result += url+"\n"
         resultList.append(url)
-        resultLabel.config(text=f"RESULT: \n {result}")
-
         root.update()
-
         response.close()
+
     response.close()
 
     return checked, results, 
+
+def showResults(bgcolor,textcolor):
+    root = tk.Tk()
+    root.geometry("500x300")
+
+    scrollbar = tk.Scrollbar(root)
+    scrollbar.pack( side = tk.RIGHT, fill=tk.BOTH)
+
+    mylist = tk.Listbox(root,width=500, yscrollcommand = scrollbar.set)
+    for index, line in enumerate(open("./results.txt", "r").read().split()):
+       mylist.insert(tk.END, str(index) + ": " + str(line))
+    
+    mylist.pack( side = tk.LEFT, fill = tk.BOTH )
+    scrollbar.config( command = mylist.yview )
+
+    root.mainloop()
 
 
 def openSubScanner(bgcolor,textcolor): # die van enzo is superieur dit is simpelweg een kleine variant (ik wordt niet onder druk gezet om dit te zeggen)

@@ -1,5 +1,5 @@
 import tkinter as tk
-import webtools, json
+import webtools, json, unrelated
 import matplotlib.pyplot as pyplot
 
 bgcolor = "black"
@@ -28,7 +28,7 @@ def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variat
     root = tk.Tk()
     root.title("WEB TOOLS")
 
-    root.geometry("200x300")
+    root.geometry("300x300")
     root.configure(bg=bgcolor)
 
     menubar = tk.Menu(root, background=bgcolor, fg=textcolor,bg=bgcolor)
@@ -36,15 +36,19 @@ def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variat
     file = tk.Menu(menubar, tearoff=False, background=bgcolor, fg=textcolor, bg=bgcolor)
     settings = tk.Menu(menubar, tearoff=False, background=bgcolor, fg=textcolor, bg=bgcolor)
     thememenu = tk.Menu(menubar, tearoff=False, background=bgcolor, fg=textcolor, bg=bgcolor)
+    unrelatedMenu = tk.Menu(menubar, tearoff=False, background=bgcolor, fg=textcolor, bg=bgcolor)
 
     settings.add_command(label="search buckets",command=lambda:searchCustom(bases, maxthreads, keywords, bucket_variations))
     settings.add_command(label="search slack",command=lambda:searchCustom([slack_base], maxthreads, keywords, bucket_variations))
     settings.add_command(label="search atlassian",command=lambda:searchCustom([atla_base], maxthreads, keywords, bucket_variations))
     settings.add_command(label="search custom", command=lambda:searchCustom([customBase.get()], maxthreads, keywords, bucket_variations))
+    settings.add_command(label="show results", command=lambda:webtools.showResults(bgcolor,textcolor))
 
     file.add_command(label="subscan", command=lambda:webtools.openSubScanner(bgcolor,textcolor)) 
     file.add_command(label="plot graph", command = lambda:plotGraph(currentChecked, keystring, checked))
     file.add_command(label="exit", command=root.quit)
+
+    unrelatedMenu.add_command(label="decypher", command=unrelated.openDecypher)
 
     for category, items in themes.items():
         category_menu = tk.Menu(thememenu, tearoff=False)
@@ -57,6 +61,8 @@ def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variat
     menubar.add_cascade(label="settings", menu=file) 
     menubar.add_cascade(label="search", menu=settings)
     menubar.add_cascade(label="theme", menu=thememenu)
+    menubar.add_cascade(label="unrelated", menu=unrelatedMenu)
+
     root.config(menu=menubar) 
 
     tk.Label(text="BRUTE FORCE 😛", bg=bgcolor, font="Helvetica", fg=textcolor).pack()
@@ -81,15 +87,15 @@ def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variat
     checkedLabel = tk.Label(root, text="SCANNED: 0", bg=bgcolor, fg=textcolor)
     checkedLabel.pack()
 
+    foundLabel = tk.Label(root, text="FOUND: 0", bg=bgcolor, fg=textcolor)
+    foundLabel.pack()
+
     tk.Label(root,text="Max Threads", bg=bgcolor, fg=textcolor).pack()
     maxthreads = tk.Entry(root,bg=bgcolor, fg=textcolor)
-    maxthreads.insert(0, "100")
+    maxthreads.insert(0, "250")
     maxthreads.pack()
 
-    resultLabel = tk.Label(root, text="RESULTS: ", bg=bgcolor, fg=textcolor)
-    resultLabel.pack()
-
-    return root, keywordsLabel, addKeywords, customBase, threadsLabel, checkedLabel, maxthreads, resultLabel
+    return root, keywordsLabel, addKeywords, customBase, threadsLabel, checkedLabel, maxthreads, foundLabel
 
 def plotGraph(currentChecked, keystring, checked):
     pyplot.axis([0,currentChecked, 0, currentChecked])

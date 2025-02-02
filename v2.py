@@ -33,7 +33,7 @@ def check_custom(custom_name, base):
     global currentChecked
 
     for i in base:
-        t2 = threading.Thread(target=webtools.checkBases, args=(custom_name, i, root, resultLabel,))
+        t2 = threading.Thread(target=webtools.checkBases, args=(custom_name, i, root,foundlabel,))
         currentChecked += len(base)
 
         t2.start()
@@ -43,7 +43,7 @@ def searchCustom(base, maxthreads, keywords, bucket_variations):
     threadlimit = int(maxthreads.get()) if maxthreads.get().isdigit() else 100
 
     for custom in bucket_variations:
-        while threading.active_count() > threadlimit:
+        while threading.active_count() >= threadlimit:
             root.update()
 
         t1 = threading.Thread(target=check_custom, args=(custom,base,))
@@ -51,6 +51,7 @@ def searchCustom(base, maxthreads, keywords, bucket_variations):
 
         threadsLabel.config(text=f"THREADS: {threading.active_count()}")
         checkedLabel.config(text=f"SCANNED: {currentChecked}")
+        foundlabel.config(text="FOUND: {}".format(len(open("./results.txt", "r").read().split())))
         root.update()
 
 def addKeyword():
@@ -62,6 +63,6 @@ def addKeyword():
 
     keywordsLabel.config(text=f"KEYWORDS: {keystring}")
 
-root, keywordsLabel, addKeywords, customBase, threadsLabel, checkedLabel, maxthreads, resultLabel = GUIHandler.startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variations, currentChecked, checked)
+root, keywordsLabel, addKeywords, customBase, threadsLabel, checkedLabel, maxthreads, foundlabel = GUIHandler.startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variations, currentChecked, checked)
 
 root.mainloop()
