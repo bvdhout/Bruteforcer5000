@@ -1,5 +1,7 @@
 import threading, os, time, webtools, GUIHandler
 
+# hoi wouter
+
 keywordsFile = open("./keywords.txt", "r")
 variationsFile = open("./variations.txt", "r")
 results = open("./results.txt", "w")
@@ -40,7 +42,8 @@ def check_custom(custom_name, base):
 
 def searchCustom(base, maxthreads, keywords, bucket_variations):
     loadKeywords()
-    threadlimit = int(maxthreads.get()) if maxthreads.get().isdigit() else 100
+    threadlimit = int(maxthreads.get()) if maxthreads.get().isdigit() else 150
+    if not maxthreads.get().isdigit(): print("maxthreads is nog digits so set to 150")
 
     for custom in bucket_variations:
         while threading.active_count() >= threadlimit:
@@ -66,3 +69,8 @@ def addKeyword():
 root, keywordsLabel, addKeywords, customBase, threadsLabel, checkedLabel, maxthreads, foundlabel = GUIHandler.startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variations, currentChecked, checked)
 
 root.mainloop()
+
+# git remote -v
+# git add .
+# git commit -m "message"
+# git push origin main

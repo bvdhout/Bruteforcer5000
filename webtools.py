@@ -65,7 +65,6 @@ def showResults(bgcolor,textcolor):
 
     root.mainloop()
 
-
 def openSubScanner(bgcolor,textcolor): # die van enzo is superieur dit is simpelweg een kleine variant (ik wordt niet onder druk gezet om dit te zeggen)
     def subScan(): 
 
@@ -110,5 +109,65 @@ def openSubScanner(bgcolor,textcolor): # die van enzo is superieur dit is simpel
 
     subScanButton = tk.Button(window, text="SCAN", bg=bgcolor, fg=textcolor, command=subScan)
     subScanButton.pack()
+
+    window.mainloop()
+
+def sitemap(bgcolor, textcolor):
+
+    def find_sitemap():
+        global result
+        sitemaps = ["sitemap.xml", "sitemap", "sitemap.txt", "sitemap.html", "sitemap.xml.gz", "sitemap_index.xml", "sitemap.php", "sitemapindex.xml", "sitemap.gz"]
+        scanDomain = domain.get()
+
+        homepage = "https://www.{}/".format(scanDomain)
+
+        for base in sitemaps:
+            url = "https://www.{}/".format(scanDomain)+base
+            failed = False
+            
+            try:
+                json = requests.get(url, timeout=5)
+                json.raise_for_status()
+            except requests.exceptions.Timeout:
+                print("link timed out after 5 seconds")
+                failed = True
+            except requests.exceptions.RequestException as e:
+                failed = True
+
+            if not failed and json.status_code == 200 and not json.history:
+                result += url+"\n"
+                results.write("{}\n".format(url))
+
+                searchButton.config(text="SEARCHING...")
+                label.config(text="SITEMAPS: \n"+result)
+
+                results.flush()
+                window.update()
+
+            if not failed:
+                json.close()
+            
+            searchButton.config(text="SEARCH")
+
+        if result == "":
+            label.config(text= "SITEMAPS: no sitemaps found")
+            window.update()
+    
+    window = tk.Tk()
+
+    window.title("FIND SITEMAP")
+    window.geometry("200x150")
+    window.configure(bg=bgcolor)
+
+    tk.Label(window, text="DOMAIN", bg=bgcolor, fg=textcolor).pack()
+    domain = tk.Entry(window, bg=bgcolor, fg=textcolor)
+    domain.insert(0, "example.com")
+    domain.pack()
+
+    searchButton = tk.Button(window, text="SEARCH", bg=bgcolor, fg=textcolor, command=find_sitemap)
+    searchButton.pack()
+
+    label = tk.Label(window, text= "SITEMAPS: ", bg=bgcolor, fg=textcolor)
+    label.pack()
 
     window.mainloop()

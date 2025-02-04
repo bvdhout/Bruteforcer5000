@@ -1,0 +1,2 @@
+https://demo-jbl.storage.googleapis.com/
+https://audiosjbl.storage.googleapis.com/

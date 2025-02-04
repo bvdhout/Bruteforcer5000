@@ -28,15 +28,16 @@ def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variat
     root = tk.Tk()
     root.title("WEB TOOLS")
 
-    root.geometry("300x300")
+    root.geometry("210x300")
     root.configure(bg=bgcolor)
 
-    menubar = tk.Menu(root, background=bgcolor, fg=textcolor,bg=bgcolor)
+    menubar = tk.Menu(root)
   
     file = tk.Menu(menubar, tearoff=False, background=bgcolor, fg=textcolor, bg=bgcolor)
     settings = tk.Menu(menubar, tearoff=False, background=bgcolor, fg=textcolor, bg=bgcolor)
     thememenu = tk.Menu(menubar, tearoff=False, background=bgcolor, fg=textcolor, bg=bgcolor)
     unrelatedMenu = tk.Menu(menubar, tearoff=False, background=bgcolor, fg=textcolor, bg=bgcolor)
+    pause = tk.Menu(menubar, tearoff=False, background=bgcolor, fg=textcolor, bg=bgcolor)
 
     settings.add_command(label="search buckets",command=lambda:searchCustom(bases, maxthreads, keywords, bucket_variations))
     settings.add_command(label="search slack",command=lambda:searchCustom([slack_base], maxthreads, keywords, bucket_variations))
@@ -44,8 +45,9 @@ def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variat
     settings.add_command(label="search custom", command=lambda:searchCustom([customBase.get()], maxthreads, keywords, bucket_variations))
     settings.add_command(label="show results", command=lambda:webtools.showResults(bgcolor,textcolor))
 
-    file.add_command(label="subscan", command=lambda:webtools.openSubScanner(bgcolor,textcolor)) 
-    file.add_command(label="plot graph", command = lambda:plotGraph(currentChecked, keystring, checked))
+    unrelatedMenu.add_command(label="subscan", command=lambda:webtools.openSubScanner(bgcolor,textcolor)) 
+    unrelatedMenu.add_command(label="sitemap", command=lambda:webtools.sitemap(bgcolor, textcolor))
+    file.add_command(label="plot graph", command = lambda:plotGraph(currentChecked,keystring, checked))
     file.add_command(label="exit", command=root.quit)
 
     unrelatedMenu.add_command(label="decypher", command=unrelated.openDecypher)
@@ -61,7 +63,8 @@ def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variat
     menubar.add_cascade(label="settings", menu=file) 
     menubar.add_cascade(label="search", menu=settings)
     menubar.add_cascade(label="theme", menu=thememenu)
-    menubar.add_cascade(label="unrelated", menu=unrelatedMenu)
+    menubar.add_cascade(label="pause", menu=pause)
+    file.add_cascade(label="unrelated", menu=unrelatedMenu)
 
     root.config(menu=menubar) 
 
@@ -98,7 +101,7 @@ def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variat
     return root, keywordsLabel, addKeywords, customBase, threadsLabel, checkedLabel, maxthreads, foundLabel
 
 def plotGraph(currentChecked, keystring, checked):
-    pyplot.axis([0,currentChecked, 0, currentChecked])
+    pyplot.axis([currentChecked,0, currentChecked, 0])
 
     pyplot.ylabel('THING FOUND!!!')
     pyplot.xlabel('LINKS SEARCHED')
