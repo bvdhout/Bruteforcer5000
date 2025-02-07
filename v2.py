@@ -1,5 +1,5 @@
 import threading, os, time, webtools, GUIHandler
-
+import matplotlib.pyplot as pyplot
 # hoi wouter
 
 keywordsFile = open("./keywords.txt", "r")
@@ -34,9 +34,9 @@ bases = open("./bases.txt").read().split()
 def check_custom(custom_name, base):
     global currentChecked
 
-    for i in base:
+    for i in base: #base
         t2 = threading.Thread(target=webtools.checkBases, args=(custom_name, i, root,foundlabel,))
-        currentChecked += len(base)
+        currentChecked += 1
 
         t2.start()
 

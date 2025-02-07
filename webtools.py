@@ -26,7 +26,7 @@ def checkBases(bucket_name, base, root, foundlabel):
     print(url+"\n")
     
     try:
-        response = requests.get(url, timeout=8)  # 5 seconds timeout
+        response = requests.get(url, timeout=8)  # 8 seconds timeout
         response.raise_for_status()  # Raise HTTPError for bad responses (4xx and 5xx)
     except requests.exceptions.Timeout:
         print("Request timed out.")

@@ -47,7 +47,7 @@ def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variat
 
     unrelatedMenu.add_command(label="subscan", command=lambda:webtools.openSubScanner(bgcolor,textcolor)) 
     unrelatedMenu.add_command(label="sitemap", command=lambda:webtools.sitemap(bgcolor, textcolor))
-    file.add_command(label="plot graph", command = lambda:plotGraph(currentChecked,keystring, checked))
+    file.add_command(label="plot graph", command = lambda:plotGraph(currentChecked,keystring, webtools.checked))
     file.add_command(label="exit", command=root.quit)
 
     unrelatedMenu.add_command(label="decypher", command=unrelated.openDecypher)
@@ -101,10 +101,11 @@ def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variat
     return root, keywordsLabel, addKeywords, customBase, threadsLabel, checkedLabel, maxthreads, foundLabel
 
 def plotGraph(currentChecked, keystring, checked):
-    pyplot.axis([currentChecked,0, currentChecked, 0])
+    sigma = currentChecked
+    pyplot.axis([0, len(checked), 0, len(checked)])
 
-    pyplot.ylabel('THING FOUND!!!')
-    pyplot.xlabel('LINKS SEARCHED')
+    pyplot.ylabel('RESULTS')
+    pyplot.xlabel('SEARCHED')
     pyplot.title(keystring)
 
     for i, v in enumerate(checked):

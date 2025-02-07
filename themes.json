@@ -151,5 +151,12 @@
             "bg": "forest green",
             "fg": "dark gray"
         }
+    ],
+    "mensen": [
+        {
+            "name": "enzo",
+            "bg": "medium purple",
+            "fg": "dark slate gray"
+        }
     ]
 }
