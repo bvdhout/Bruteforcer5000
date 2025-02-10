@@ -1,5 +1,4 @@
 import threading, os, time, webtools, GUIHandler
-import matplotlib.pyplot as pyplot
 # hoi wouter
 
 keywordsFile = open("./data/keywords.txt", "r")

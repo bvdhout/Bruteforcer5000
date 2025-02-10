@@ -9,6 +9,7 @@ subdomain_base = "https://crt.sh/?q={}&output=json"
 result = ""
 resultList = []
 checked = []
+printall = False
 
 timeout = 5
 
@@ -25,7 +26,8 @@ def checkBases(bucket_name, base, root, foundlabel):
     url = base.format(bucket_name)
 
     checked.append(len(resultList))
-    print(url+"\n")
+    
+    if printall:print(url+"\n")
     
     try:
         response = requests.get(url, timeout=timeout)  # 8 seconds timeout
