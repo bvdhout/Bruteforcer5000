@@ -1,4 +1,4 @@
-import requests, threading
+import requests, threading, socket
 import tkinter as tk
 
 results = open("./results.txt", "w")
@@ -82,14 +82,30 @@ def openSubScanner(bgcolor,textcolor): # die van enzo is superieur dit is simpel
             window.update()
             for i in json.json():
                 if not i["name_value"] in resultList:
-                    print(i["name_value"], "\n")
-                    window.update()
+                    if "\n" in i["name_value"]: 
+                        namevalues = i["name_value"].split("\n")
+                        for value in namevalues:
+                            if not value in resultList and not "*" in value:
+                                print(value, "\n")
+                                window.update()
 
-                    results.write("{}\n".format(i["name_value"]))
-                    results.flush()
-            
-                    result += i["name_value"]+"\n"
-                    resultList.append(i["name_value"])
+                                results.write("{}\n".format(value))
+                                results.flush()
+                        
+                                result += value+"\n"
+                                resultList.append(value)
+                    
+                    elif not i["name_value"] in resultList and not "*" in i["name_value"]:
+                        print(i["name_value"], "\n")
+                        window.update()
+
+                        results.write("{}\n".format(i["name_value"]))
+                        results.flush()
+                
+                        result += i["name_value"]+"\n"
+                        resultList.append(i["name_value"])
+
+            print(len(resultList))
 
         json.close()
         
@@ -168,6 +184,50 @@ def sitemap(bgcolor, textcolor):
     searchButton.pack()
 
     label = tk.Label(window, text= "SITEMAPS: ", bg=bgcolor, fg=textcolor)
+    label.pack()
+
+    window.mainloop()
+
+def reverse_ip(bgcolor, textcolor): # die van enzo is superieur dit is simpelweg een kleine variant (ik wordt niet onder druk gezet om dit te zeggen)
+    def get_ip():
+        response = requests.get("https://{}/".format(domain.get()))
+
+        if response.status_code == 200:
+            ip = socket.gethostbyname(domain.get())
+
+            try:
+                global result
+                answer = requests.get("https://api.reverseipdomain.com/?ip={}".format(ip), timeout=5)
+                if answer.status_code == 200:
+                    for i in answer.json()["result"]:
+                        result += i+"\n"
+                        results.write("{}\n".format(i))
+
+                        searchButton.config(text="SEARCHING...")
+                        label.config(text="SITEMAPS: \n"+result)
+
+                        results.flush()
+                        window.update()
+            except requests.Timeout:
+                print("Request timed out")
+        else:
+            print("failed request")
+
+    window = tk.Tk()
+
+    window.title("REVERSE IP SEARCH")
+    window.geometry("200x150")
+    window.configure(bg=bgcolor)
+
+    tk.Label(window, text="DOMAIN:", bg=bgcolor, fg=textcolor).pack()
+    domain = tk.Entry(window, bg=bgcolor, fg=textcolor)
+    domain.insert(0, "example.com")
+    domain.pack()
+
+    searchButton = tk.Button(window, text="SEARCH", bg=bgcolor, fg=textcolor, command=get_ip)
+    searchButton.pack()
+
+    label = tk.Label(window, text= "RESULTS: ", bg=bgcolor, fg=textcolor)
     label.pack()
 
     window.mainloop()

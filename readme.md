@@ -4,29 +4,45 @@
 ---
 
 ## What can it do?
-This program can brute force websites by keyword (For example: Slack, Atlassian, Amazon Aws buckets), there is also a subdomain scanner built in using the crt.sh servers and there is a sitemap finder by brute force.
+- [x] Brute force buckets or any website like slack or atlassian
+- [x] Scan subdomains using crt.sh servers
+- [x] Brute force sitemaps
+- [x] Switch between super awesomesauce themes
+- [x] Do a reverse ip scan on any domain
+- [ ] Make a sandwich
+- [ ] Dominate the world
+- [ ] Order a pizza 
+- [ ] Outrun the immortal snail
+
+This program can brute force websites by keyword (For example: Slack, Atlassian, Amazon Aws buckets), there is also a subdomain scanner built in using the crt.sh servers, a sitemap finder by brute force and a reverse ip scanner that works by domain
 
 ## Requirements
 - Tested on python 3.11.1 using other versions may cause errors,
-- Dependencies are listed in `requirements.txt` see below:
-    - Tkinter (imported as tk)
-    - matplotlib.pyplot
-    - ### The following libraries are included with python
-    - threading
-    - json
+- Internet connection is also needed to run any of the functions (except for the themes)
+- Dependencies can be found in `requirements.txt` or see below:
+    - `tkinter` (imported as tk)
+    - `matplotlib`
+    - **The following libraries are included with python**
+    - `threading`
+    - `requests`
+    - `socket`
+    - `json`
+
+
 
 ## Program use
-- 1, Run v2.py
-- 2, Add keywords
-- 3, If using a custom url base enter into the given entry
-- 4, Run by clicking the button in menubar
-- 5, See results in `search` in the menubar or in `results.txt`
+1. Use the terminal to install dependencies
+2. Run v2.py
+3. Add keywords if needed
+4. If using a custom url base enter into the given entry
+5. Run by clicking the `search` button in the menubar and clicking on the appropriate command
+6. See results in `search` in the menubar or in `results.txt` or use any of the functions in the unrelated tab under the settings
 
-This is a simple description for a more detailed and technical explanation see below. V
+This is a simple description of my program for a more detailed and technical explanation see below. V
 
 ---
 
-# the cool part
+# The cool part
 
 ## GUIHandler
 >Starts GUI and takes care of the themes and graph,
@@ -60,10 +76,16 @@ This is a simple description for a more detailed and technical explanation see b
 * Sends a request crt.sh with the given domain name, reads the returned json for each subdomain,
 
 ### sitemap: 
-* Opens a new tkinter window almost the same as "openSubScanner", 
+* Opens a new tkinter window almost the same as `openSubScanner()`, 
 
 ### find_sitemap: 
 * Also uses bruteforce, goes through a list of common sitemap names and adds them to the given domain name then proceeding to send a request if code 200 OK is given the domain plus sitemap name gets added to the results and written to `results.txt`,
+
+### reverse_ip:
+* Does the same as `sitemap()` and `openSubScanner()`
+
+### get_ip:
+* Uses `socket` to get the ip adress of the given domain name then proceeds to send a request to `https://api.reverseipdomain.com/?ip=` with the ip adress returned by socket, it proceeds to filter through the json response writing all results to `results.txt` and the GUI
 
 ---
 ## v2
@@ -76,10 +98,10 @@ This is a simple description for a more detailed and technical explanation see b
 * Starts a new thread for each base running the "checkBases" function in webtools, also in charge of keeping up the currentChecked variable,
 
 ### searchCustom: 
-* Starts of by loading the keywords then loops through each bucket variation and makes sure there are not too many threads running at the same time, if there are it will wait untill it has dropped below the limit (this limit can be set is the tkinter GUI defaults to 250 or 150 if a noninteger is set), once the thread count is low enough it will open a new one running the "check_custom" function, finally updates all the counters in the GUI,
+* Starts of by loading the keywords then loops through each bucket variation and makes sure there are not too many threads running at the same time, if there are it will wait untill it has dropped below the limit (this limit can be set is the tkinter GUI defaults to 250 or 150 if something else than an integer is set), once the thread count is low enough it will open a new one running the "check_custom" function, finally updates all the counters in the GUI,
 
 ### addKeyword: 
-* Adds the keyword in the given Entry upon click of the "add keyword" button,
+* Adds the keyword in the given Entry to the `keywords` list upon click of the "add keyword" button,
 
 ---
 ## unrelated
@@ -100,6 +122,7 @@ This is a simple description for a more detailed and technical explanation see b
 
 ### variations.txt: 
 * Stores exactly 957 variations for each keyword making sure it tries as many possible links.
+
 
 ### results.txt: 
 * Final results get written into this file, does get cleared upon starting the program,

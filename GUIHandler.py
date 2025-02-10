@@ -47,6 +47,7 @@ def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variat
 
     unrelatedMenu.add_command(label="subscan", command=lambda:webtools.openSubScanner(bgcolor,textcolor)) 
     unrelatedMenu.add_command(label="sitemap", command=lambda:webtools.sitemap(bgcolor, textcolor))
+    unrelatedMenu.add_command(label="reverse ip", command=lambda:webtools.reverse_ip(bgcolor,textcolor))
     file.add_command(label="plot graph", command = lambda:plotGraph(currentChecked,keystring, webtools.checked))
     file.add_command(label="exit", command=root.quit)
 

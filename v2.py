@@ -34,7 +34,7 @@ bases = open("./bases.txt").read().split()
 def check_custom(custom_name, base):
     global currentChecked
 
-    for i in base: #base
+    for i in base: 
         t2 = threading.Thread(target=webtools.checkBases, args=(custom_name, i, root,foundlabel,))
         currentChecked += 1
 
