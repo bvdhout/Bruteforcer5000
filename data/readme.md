@@ -85,7 +85,7 @@ This is a simple description of my program for a more detailed and technical exp
 * Does the same as `sitemap()` and `openSubScanner()`
 
 ### get_ip:
-* Uses `socket` to get the ip adress of the given domain name then proceeds to send a request to `https://api.reverseipdomain.com/?ip=` with the ip adress returned by socket, it proceeds to filter through the json response writing all results to `results.txt` and the GUI
+* Uses `socket` to get the ip adress of the given domain name then proceeds to send a request to `https://api.reverseipdomain.com/` with the ip adress returned by socket, it proceeds to filter through the json response writing all results to `results.txt` and the GUI
 
 ---
 ## v2

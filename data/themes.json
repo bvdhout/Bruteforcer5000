@@ -3,160 +3,188 @@
         {
             "name": "batman",
             "bg": "black",
-            "fg": "yellow"
+            "fg": "yellow",
+            "font": "Impact"
         },
         {
             "name": "barbie",
             "bg": "plum1",
-            "fg": "deep pink"
+            "fg": "deep pink",
+            "font": "Comic Sans MS"
         },
         {
             "name": "oppenheimer",
             "bg": "peach puff",
-            "fg": "tan4"
+            "fg": "tan4",
+            "font": "Georgia"
         }
     ],
     "games": [
         {
             "name": "minecraft",
             "bg": "forest green",
-            "fg": "saddle brown"
+            "fg": "saddle brown",
+            "font": "Courier New"
         },
         {
             "name": "zelda",
             "bg": "dark green",
-            "fg": "gold"
+            "fg": "gold",
+            "font": "Times New Roman"
         },
         {
             "name": "mario",
             "bg": "red3",
-            "fg": "blue2"
+            "fg": "blue2",
+            "font": "Comic Sans MS"
         }
     ],
     "classic": [
         {
             "name": "light",
             "bg": "white",
-            "fg": "black"
+            "fg": "black",
+            "font": "Arial"
         },
         {
             "name": "dark",
             "bg": "black",
-            "fg": "white"
+            "fg": "white",
+            "font": "Tahoma"
         },
         {
             "name": "blue",
             "bg": "dodgerblue4",
-            "fg": "black"
+            "fg": "black",
+            "font": "Verdana"
         }
     ],
     "cartoons": [
         {
             "name": "spongebob",
             "bg": "yellow",
-            "fg": "blue"
+            "fg": "blue",
+            "font": "Comic Sans MS"
         },
         {
             "name": "tom and jerry",
             "bg": "gray",
-            "fg": "orange"
+            "fg": "orange",
+            "font": "Arial Black"
         },
         {
             "name": "fairly odd parents",
             "bg": "medium purple",
-            "fg": "spring green"
+            "fg": "spring green",
+            "font": "Tahoma"
         }
     ],
     "sci-fi": [
         {
             "name": "dune",
             "bg": "tan",
-            "fg": "sienna"
+            "fg": "sienna",
+            "font": "Georgia"
         },
         {
             "name": "matrix",
             "bg": "black",
-            "fg": "lime green"
+            "fg": "lime green",
+            "font": "Courier New"
         },
         {
             "name": "tron",
             "bg": "dark slate gray",
-            "fg": "deep sky blue"
+            "fg": "deep sky blue",
+            "font": "Arial"
         }
     ],
     "food": [
         {
             "name": "strawberry",
             "bg": "red",
-            "fg": "green"
+            "fg": "green",
+            "font": "Comic Sans MS"
         },
         {
             "name": "chocolate",
             "bg": "sienna",
-            "fg": "bisque"
+            "fg": "bisque",
+            "font": "Garamond"
         },
         {
             "name": "cottoncandy",
             "bg": "light pink",
-            "fg": "deep sky blue"
+            "fg": "deep sky blue",
+            "font": "Arial"
         }
     ],
     "mythical": [
         {
             "name": "dragon",
             "bg": "firebrick",
-            "fg": "gold"
+            "fg": "gold",
+            "font": "Times New Roman"
         },
         {
             "name": "phoenix",
             "bg": "darkorange",
-            "fg": "yellow"
+            "fg": "yellow",
+            "font": "Georgia"
         },
         {
             "name": "unicorn",
             "bg": "lavender",
-            "fg": "orchid1"
+            "fg": "orchid1",
+            "font": "Comic Sans MS"
         }
     ],
     "underwater": [
         {
             "name": "coral reef",
             "bg": "turquoise",
-            "fg": "coral"
+            "fg": "coral",
+            "font": "Verdana"
         },
         {
             "name": "deep sea",
             "bg": "midnight blue",
-            "fg": "light sea green"
+            "fg": "light sea green",
+            "font": "Arial"
         },
         {
             "name": "ocean sunset",
             "bg": "indian red",
-            "fg": "light cyan"
+            "fg": "light cyan",
+            "font": "Tahoma"
         }
     ],
     "gothic": [
         {
             "name": "victorian gothic",
             "bg": "black",
-            "fg": "dark red"
+            "fg": "dark red",
+            "font": "Times New Roman"
         },
         {
             "name": "haunted mansion",
             "bg": "gray",
-            "fg": "snow"
+            "fg": "snow",
+            "font": "Courier New"
         },
         {
             "name": "dark forest",
             "bg": "forest green",
-            "fg": "dark gray"
+            "fg": "dark gray",
+            "font": "Georgia"
         }
     ],
     "mensen": [
         {
             "name": "enzo",
             "bg": "medium purple",
-            "fg": "dark slate gray"
+            "fg": "dark slate gray",
+            "font": "Century Gothic"
         }
     ]
 }

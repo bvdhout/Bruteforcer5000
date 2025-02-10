@@ -2,9 +2,9 @@ import threading, os, time, webtools, GUIHandler
 import matplotlib.pyplot as pyplot
 # hoi wouter
 
-keywordsFile = open("./keywords.txt", "r")
-variationsFile = open("./variations.txt", "r")
-results = open("./results.txt", "w")
+keywordsFile = open("./data/keywords.txt", "r")
+variationsFile = open("./data/variations.txt", "r")
+results = open("./data/results.txt", "w")
 
 variations = []
 
@@ -29,7 +29,7 @@ def loadKeywords():
         bucket_variations.append(word)
         webtools.loadVariations(variations, word, bucket_variations)
 
-bases = open("./bases.txt").read().split()
+bases = open("./data/bases.txt").read().split()
 
 def check_custom(custom_name, base):
     global currentChecked
@@ -54,17 +54,19 @@ def searchCustom(base, maxthreads, keywords, bucket_variations):
 
         threadsLabel.config(text=f"THREADS: {threading.active_count()}")
         checkedLabel.config(text=f"SCANNED: {currentChecked}")
-        foundlabel.config(text="FOUND: {}".format(len(open("./results.txt", "r").read().split())))
+        foundlabel.config(text="FOUND: {}".format(len(open("./data/results.txt", "r").read().split())))
         root.update()
 
 def addKeyword():
     keywords.append(addKeywords.get())
     keystring = ""
-
     for i in keywords:
         keystring += i+", "
-
     keywordsLabel.config(text=f"KEYWORDS: {keystring}")
+    with open("./data/keywords.txt", "w") as wordsfile:
+        for word in keywords:
+            wordsfile.write(word+"\n")
+            wordsfile.flush()
 
 root, keywordsLabel, addKeywords, customBase, threadsLabel, checkedLabel, maxthreads, foundlabel = GUIHandler.startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variations, currentChecked, checked)
 

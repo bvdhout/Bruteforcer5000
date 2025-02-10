@@ -1,14 +1,16 @@
 import requests, threading, socket
 import tkinter as tk
 
-results = open("./results.txt", "w")
-variations = open("./variations.txt", "r").read().split()
+results = open("./data/results.txt", "w")
+variations = open("./data/variations.txt", "r").read().split()
 
 subdomain_base = "https://crt.sh/?q={}&output=json"
 
 result = ""
 resultList = []
 checked = []
+
+timeout = 5
 
 def loadVariations(varations, word, bucket_variations):
     for variation in varations:
@@ -26,7 +28,7 @@ def checkBases(bucket_name, base, root, foundlabel):
     print(url+"\n")
     
     try:
-        response = requests.get(url, timeout=8)  # 8 seconds timeout
+        response = requests.get(url, timeout=timeout)  # 8 seconds timeout
         response.raise_for_status()  # Raise HTTPError for bad responses (4xx and 5xx)
     except requests.exceptions.Timeout:
         print("Request timed out.")
@@ -57,7 +59,7 @@ def showResults(bgcolor,textcolor):
     scrollbar.pack( side = tk.RIGHT, fill=tk.BOTH)
 
     mylist = tk.Listbox(root,width=500, yscrollcommand = scrollbar.set)
-    for index, line in enumerate(open("./results.txt", "r").read().split()):
+    for index, line in enumerate(open("./data/results.txt", "r").read().split()):
        mylist.insert(tk.END, str(index) + ": " + str(line))
     
     mylist.pack( side = tk.LEFT, fill = tk.BOTH )
@@ -142,7 +144,7 @@ def sitemap(bgcolor, textcolor):
             failed = False
             
             try:
-                json = requests.get(url, timeout=5)
+                json = requests.get(url, timeout=timeout)
                 json.raise_for_status()
             except requests.exceptions.Timeout:
                 print("link timed out after 5 seconds")
@@ -197,7 +199,7 @@ def reverse_ip(bgcolor, textcolor): # die van enzo is superieur dit is simpelweg
 
             try:
                 global result
-                answer = requests.get("https://api.reverseipdomain.com/?ip={}".format(ip), timeout=5)
+                answer = requests.get("https://api.reverseipdomain.com/?ip={}".format(ip), timeout=timeout)
                 if answer.status_code == 200:
                     for i in answer.json()["result"]:
                         result += i+"\n"
