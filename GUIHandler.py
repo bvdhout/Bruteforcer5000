@@ -30,12 +30,12 @@ def changeTheme(bg,fg,fontname, root, menubar):
     for popup in menubar.winfo_children():
         popup.config(bg=bg,fg=fg,font=usedfont)
 
-def update(fontsize, root, window, timeout):
+def update(fontsize, root, window, timeout, printall):
     global font
     fontname = font[0]
 
     font=(fontname, fontsize, "normal")
-    webtools.timeout = timeout
+    webtools.timeout, webtools.printall = timeout, printall.get()
 
     for widget in root.winfo_children():
         widget.config(font=font)
@@ -44,7 +44,7 @@ def update(fontsize, root, window, timeout):
         widget.config(font=font)
 
     print(font)
-    print(webtools.timeout)
+    print(webtools.timeout, printall.get())
 
 def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variations, currentChecked, checked):
     root = tk.Tk()
@@ -160,7 +160,7 @@ def openSettings(root):
 
     tk.Label(window,text="font size", bg=bgcolor, fg=textcolor, font=font).pack()
     fontsize = tk.Entry(window,bg=bgcolor,fg=textcolor,font=font)
-    fontsize.insert(0, "12")
+    fontsize.insert(0, "10")
     fontsize.pack()
 
     tk.Label(window, text="timeout",bg=bgcolor,fg=textcolor,font=font).pack()
@@ -168,4 +168,7 @@ def openSettings(root):
     timeout.insert(0,"5")
     timeout.pack()
 
-    tk.Button(window,text="apply", bg=bgcolor,fg=textcolor,font=font, command=lambda:update(int(fontsize.get()), root, window, int(timeout.get()))).pack()
+    printall = tk.BooleanVar()
+    tk.Checkbutton(window,text="Print only results?", variable=printall, onvalue=True, offvalue=False).pack()
+
+    tk.Button(window,text="apply", bg=bgcolor,fg=textcolor,font=font, command=lambda:update(int(fontsize.get()), root, window, int(timeout.get()), printall)).pack()
