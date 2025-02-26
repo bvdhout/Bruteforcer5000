@@ -9,11 +9,9 @@ subdomain_base = "https://crt.sh/?q={}&output=json"
 result = ""
 resultList = []
 checked = []
-<<<<<<< HEAD
 failed = []
-=======
+
 printall = False
->>>>>>> 5153f81e6f877e22097ae77f8678f064e6bba94e
 
 timeout = 5
 
@@ -29,15 +27,13 @@ def checkBases(bucket_name, base, root, foundlabel):
 
     url = base.format(bucket_name)
 
-<<<<<<< HEAD
     checked.append({"found": len(resultList), "failed": 10}) #len(failed)
     print(url+"\n")
-=======
+    
     checked.append(len(resultList))
     
     if printall:print(url+"\n")
->>>>>>> 5153f81e6f877e22097ae77f8678f064e6bba94e
-    
+        
     try:
         response = requests.get(url, timeout=timeout)  # 8 seconds timeout
         response.raise_for_status()  # Raise HTTPError for bad responses (4xx and 5xx)
