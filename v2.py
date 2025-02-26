@@ -42,8 +42,8 @@ def check_custom(custom_name, base):
 
 def searchCustom(base, maxthreads, keywords, bucket_variations):
     loadKeywords()
-    threadlimit = int(maxthreads.get()) if maxthreads.get().isdigit() else 150
-    if not maxthreads.get().isdigit(): print("maxthreads is nog digits so set to 150")
+    threadlimit = int(maxthreads.get()) if maxthreads.get().isdigit() else 250
+    if not maxthreads.get().isdigit(): print("maxthreads is nog digits so set to 2mdat50")
 
     for custom in bucket_variations:
         while threading.active_count() >= threadlimit:

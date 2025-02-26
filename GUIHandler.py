@@ -128,15 +128,24 @@ def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variat
     return root, keywordsLabel, addKeywords, customBase, threadsLabel, checkedLabel, maxthreads, foundLabel
 
 def plotGraph(currentChecked, keystring, checked):
-    sigma = currentChecked
     pyplot.axis([0, len(checked), 0, len(checked)])
 
     pyplot.ylabel('RESULTS')
     pyplot.xlabel('SEARCHED')
     pyplot.title(keystring)
 
+    pyplot.bar(0,0,0,color=(1,0,0,1),label = "failed")
+    pyplot.bar(0,0,0,color=(0.1,0.2,1,1), label = "found")
+
     for i, v in enumerate(checked):
-        pyplot.bar(i,v,1,color=(0.1,0.2,1,1))
+        if v["failed"] > v["found"]:
+            pyplot.bar(i,v["failed"],1,color=(1,0,0,1))
+            pyplot.bar(i,v["found"],1,color=(0.1,0.2,1,1))
+        else:
+            pyplot.bar(i,v["found"],1,color=(0.1,0.2,1,1))
+            pyplot.bar(i,v["failed"],1,color=(1,0,0,1))
+
+    pyplot.legend(loc='lower left', shadow=True, facecolor='lightgray')
 
     pyplot.plot()
     pyplot.show()

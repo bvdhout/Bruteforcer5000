@@ -9,6 +9,7 @@ subdomain_base = "https://crt.sh/?q={}&output=json"
 result = ""
 resultList = []
 checked = []
+failed = []
 
 timeout = 5
 
@@ -24,7 +25,7 @@ def checkBases(bucket_name, base, root, foundlabel):
 
     url = base.format(bucket_name)
 
-    checked.append(len(resultList))
+    checked.append({"found": len(resultList), "failed": 10}) #len(failed)
     print(url+"\n")
     
     try:
@@ -32,6 +33,7 @@ def checkBases(bucket_name, base, root, foundlabel):
         response.raise_for_status()  # Raise HTTPError for bad responses (4xx and 5xx)
     except requests.exceptions.Timeout:
         print("Request timed out.")
+        failed.append(url)
 
         return
     except requests.exceptions.RequestException as e:
