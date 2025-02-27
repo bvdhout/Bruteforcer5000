@@ -19,8 +19,10 @@ def update():
 def create():
     with open("./data/themes.json") as file:
         custom = json.load(file)
+        if not catagory.get() in catagories:
+            custom[catagory.get()] = []
 
-        custom["custom"].append({
+        custom[catagory.get()].append({
             "name": nameValue.get(),
             "bg": bgcolor,
             "fg": fgcolor,
@@ -73,6 +75,17 @@ clicked.set( "Arial" )
 nameValue = StringVar()
 nameValue.set("Name")
 
+catagory = StringVar()
+catagory.set("custom")
+
+catagories = []
+
+with open("./data/themes.json") as file:
+    loaded = json.load(file)
+    for i in loaded:
+        print(i)
+        catagories.append(i)
+
 text = Message(root,text="The quick brown fox jumps over the lazy dog", bg=bgcolor, fg=fgcolor)
 text.pack()
 
@@ -83,6 +96,9 @@ Entry(root,textvariable=nameValue, bg=bgcolor, fg=fgcolor).pack()
 drop2 = ttk.Combobox(root, values=options, textvariable=clicked)
 drop2.bind('<KeyRelease>', check_input)
 drop2.pack()
+
+catagorydrop = ttk.Combobox(root, values=catagories, textvariable=catagory)
+catagorydrop.pack()
 
 changebg = Button(root,text="Change Background", fg="#000000", bg="#ffffff")
 changebg.config(command=lambda:change_color(bgcolor, changebg))
