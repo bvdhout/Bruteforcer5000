@@ -20,13 +20,16 @@ This program can brute force websites by keyword (For example: Slack, Atlassian,
 - Tested on python 3.11.1 using other versions may cause errors,
 - Internet connection is also needed to run any of the functions (except for the themes)
 - Dependencies can be found in `requirements.txt` or see below:
-    - `tkinter` (imported as tk)
+    - `tkinter`
     - `matplotlib`
+    - `simplejson`
     - **The following libraries are included with python**
     - `threading`
     - `requests`
     - `socket`
     - `json`
+    - `ctypes`
+    - `pprint` (to keep the themes json readable)
 
 
 

@@ -9,13 +9,11 @@ subdomain_base = "https://crt.sh/?q={}&output=json"
 result = ""
 resultList = []
 checked = []
-<<<<<<< HEAD
 failed = []
-=======
-printall = False
->>>>>>> 5153f81e6f877e22097ae77f8678f064e6bba94e
 
-timeout = 5
+printall = False
+
+timeout = 10
 
 def loadVariations(varations, word, bucket_variations):
     for variation in varations:
@@ -29,14 +27,10 @@ def checkBases(bucket_name, base, root, foundlabel):
 
     url = base.format(bucket_name)
 
-<<<<<<< HEAD
-    checked.append({"found": len(resultList), "failed": 10}) #len(failed)
-    print(url+"\n")
-=======
-    checked.append(len(resultList))
+    checked.append({"found": len(resultList), "failed": len(failed)}) #len(failed)
     
-    if printall:print(url+"\n")
->>>>>>> 5153f81e6f877e22097ae77f8678f064e6bba94e
+    if printall:
+        print(url+"\n")
     
     try:
         response = requests.get(url, timeout=timeout)  # 8 seconds timeout

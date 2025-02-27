@@ -1,10 +1,18 @@
 import tkinter as tk
-import webtools, json, unrelated
+import webtools, json, unrelated, ctypes
 import matplotlib.pyplot as pyplot
 
 bgcolor = "black"
 textcolor = "white"
 font = ("Tahoma", 10, "normal")
+
+graph_settings = {
+    "colors": {
+        "found": (0.1,0.2,1,1),
+        "failed": (1,0,0,1),
+        "scanned": (0.1,1,0,1)
+    }
+}
 
 with open('./data/themes.json') as f:
     themes = json.load(f)
@@ -30,12 +38,12 @@ def changeTheme(bg,fg,fontname, root, menubar):
     for popup in menubar.winfo_children():
         popup.config(bg=bg,fg=fg,font=usedfont)
 
-def update(fontsize, root, window, timeout, printall):
+def update(fontsize, root, window, timeout):
     global font
     fontname = font[0]
 
     font=(fontname, fontsize, "normal")
-    webtools.timeout, webtools.printall = timeout, printall.get()
+    webtools.timeout = timeout #, webtools.printall , printall
 
     for widget in root.winfo_children():
         widget.config(font=font)
@@ -44,7 +52,7 @@ def update(fontsize, root, window, timeout, printall):
         widget.config(font=font)
 
     print(font)
-    print(webtools.timeout, printall.get())
+    print(webtools.timeout) #, printall
 
 def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variations, currentChecked, checked):
     root = tk.Tk()
@@ -54,7 +62,9 @@ def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variat
     root.configure(bg=bgcolor)
     img = tk.PhotoImage(file='./data/empty-bucket.png')
 
-    root.iconphoto(False, img)
+    root.iconphoto(True, img)
+    myappid = "./data/empty-bucket.png"
+    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
     menubar = tk.Menu(root)
   
@@ -86,6 +96,8 @@ def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variat
             category_menu.add_command(label=name, command=lambda bg=bg, fg=fg, font2=font2: changeTheme(bg, fg,font2, root, menubar))
 
         thememenu.add_cascade(label=category.capitalize(), menu=category_menu)
+
+    thememenu.add_command(label="Create theme", command=create_theme)
 
     menubar.add_cascade(label="settings", menu=file) 
     menubar.add_cascade(label="search", menu=settings)
@@ -134,21 +146,28 @@ def plotGraph(currentChecked, keystring, checked):
     pyplot.xlabel('SEARCHED')
     pyplot.title(keystring)
 
-    pyplot.bar(0,0,0,color=(1,0,0,1),label = "failed")
-    pyplot.bar(0,0,0,color=(0.1,0.2,1,1), label = "found")
+    pyplot.bar(0,0,0,color=graph_settings["colors"]["failed"],label = "failed")
+    pyplot.bar(0,0,0,color=graph_settings["colors"]["found"], label = "found")
+    pyplot.bar(0,0,0,color=graph_settings["colors"]["scanned"], label = "scanned")
+
 
     for i, v in enumerate(checked):
         if v["failed"] > v["found"]:
-            pyplot.bar(i,v["failed"],1,color=(1,0,0,1))
-            pyplot.bar(i,v["found"],1,color=(0.1,0.2,1,1))
+            pyplot.bar(i,i,1,color=graph_settings["colors"]["scanned"])
+            pyplot.bar(i,v["failed"],1,color=graph_settings["colors"]["failed"])
+            pyplot.bar(i,v["found"],1,color=graph_settings["colors"]["found"])
         else:
-            pyplot.bar(i,v["found"],1,color=(0.1,0.2,1,1))
-            pyplot.bar(i,v["failed"],1,color=(1,0,0,1))
+            pyplot.bar(i,i,1,color=graph_settings["colors"]["scanned"])
+            pyplot.bar(i,v["found"],1,color=graph_settings["colors"]["found"])
+            pyplot.bar(i,v["failed"],1,color=graph_settings["colors"]["failed"])
 
-    pyplot.legend(loc='lower left', shadow=True, facecolor='lightgray')
+    pyplot.legend(loc='upper left', shadow=False, facecolor='lightgray')
 
     pyplot.plot()
     pyplot.show()
+
+def create_theme():
+    import createtheme
 
 def openSettings(root):
     window = tk.Tk()
@@ -165,10 +184,25 @@ def openSettings(root):
 
     tk.Label(window, text="timeout",bg=bgcolor,fg=textcolor,font=font).pack()
     timeout = tk.Entry(window,bg=bgcolor,fg=textcolor,font=font)
-    timeout.insert(0,"5")
+    timeout.insert(0,"10")
     timeout.pack()
 
-    printall = tk.BooleanVar()
-    tk.Checkbutton(window,text="Print only results?", variable=printall, onvalue=True, offvalue=False).pack()
+#    printall = tk.BooleanVar(value=True)
+#    tk.Checkbutton(window,text="Print only results?", variable=printall, onvalue=True, offvalue=False, command=lambda:print(printall.get())).pack()
 
-    tk.Button(window,text="apply", bg=bgcolor,fg=textcolor,font=font, command=lambda:update(int(fontsize.get()), root, window, int(timeout.get()), printall)).pack()
+    tk.Button(
+        window, 
+        text="apply", 
+        bg=bgcolor, 
+        fg=textcolor, 
+        font=font, 
+        command=lambda: (
+            print("Checkbox States Before Update Call:"),  # Debug print
+            update(
+                int(fontsize.get()), 
+                root, 
+                window, 
+                int(timeout.get()), 
+            )
+        )
+    ).pack()

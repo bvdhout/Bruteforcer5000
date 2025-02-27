@@ -179,12 +179,18 @@
             "font": "Georgia"
         }
     ],
-    "mensen": [
+    "custom": [
         {
             "name": "enzo",
             "bg": "medium purple",
             "fg": "dark slate gray",
             "font": "Century Gothic"
+        },
+        {
+            "name": "Test",
+            "bg": "#abad94",
+            "fg": "#000000",
+            "font": "Old English Text MT"
         }
     ]
 }
