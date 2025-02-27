@@ -29,7 +29,6 @@ This program can brute force websites by keyword (For example: Slack, Atlassian,
     - `socket`
     - `json`
     - `ctypes`
-    - `pprint` (to keep the themes json readable)
 
 
 
