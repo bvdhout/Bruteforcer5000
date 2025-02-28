@@ -1,5 +1,5 @@
 import tkinter as tk
-import webtools, json, unrelated, ctypes
+import webtools, json, unrelated, ctypes, os
 import matplotlib.pyplot as pyplot
 
 bgcolor = "black"
@@ -54,6 +54,18 @@ def update(fontsize, root, window, timeout):
     print(font)
     print(webtools.timeout) #, printall
 
+def showestimate(bucket_variations, bases):
+    window = tk.Tk()
+    window.config(bg=bgcolor)
+    window.geometry("200x100")
+
+    tk.Label(window, text="Estimated Searches: {}".format(len(bucket_variations)*len(bases)), bg=bgcolor, fg=textcolor).pack()
+    tk.Label(window, text="Estimated Time: {}m".format(round(((len(bucket_variations)*len(bases))/93)/60)), bg=bgcolor, fg=textcolor).pack()
+    tk.Button(window, text="Scan", bg=bgcolor, fg=textcolor, command=window.quit).pack()
+
+    window.mainloop()
+    window.update()
+
 def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variations, currentChecked, checked):
     root = tk.Tk()
     root.title("WEB TOOLS")
@@ -69,15 +81,19 @@ def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variat
     menubar = tk.Menu(root)
   
     file = tk.Menu(menubar, tearoff=False, background=bgcolor, fg=textcolor, bg=bgcolor)
-    settings = tk.Menu(menubar, tearoff=False, background=bgcolor, fg=textcolor, bg=bgcolor)
+    settings = tk.Menu(menubar, tearoff=False)
     thememenu = tk.Menu(menubar, tearoff=False, background=bgcolor, fg=textcolor, bg=bgcolor)
     unrelatedMenu = tk.Menu(menubar, tearoff=False, background=bgcolor, fg=textcolor, bg=bgcolor)
     pause = tk.Menu(menubar, tearoff=False, background=bgcolor, fg=textcolor, bg=bgcolor)
 
-    settings.add_command(label="search buckets",command=lambda:searchCustom(bases, maxthreads, keywords, bucket_variations))
-    settings.add_command(label="search slack",command=lambda:searchCustom([slack_base], maxthreads, keywords, bucket_variations))
-    settings.add_command(label="search atlassian",command=lambda:searchCustom([atla_base], maxthreads, keywords, bucket_variations))
-    settings.add_command(label="search custom", command=lambda:searchCustom([customBase.get()], maxthreads, keywords, bucket_variations))
+    all = bases
+    all.append(atla_base)
+
+    settings.add_checkbutton(label="search buckets", command=lambda:searchCustom(bases, maxthreads, keywords, bucket_variations))
+    settings.add_checkbutton(label="search buckets+atlassian", command=lambda:searchCustom(all, maxthreads, keywords, bucket_variations))
+    settings.add_checkbutton(label="search slack",command=lambda:searchCustom([slack_base], maxthreads, keywords, bucket_variations))
+    settings.add_checkbutton(label="search atlassian",command=lambda:searchCustom([atla_base], maxthreads, keywords, bucket_variations))
+    settings.add_checkbutton(label="search custom", command=lambda:searchCustom([customBase.get()], maxthreads, keywords, bucket_variations))
     settings.add_command(label="show results", command=lambda:webtools.showResults(bgcolor,textcolor))
 
     unrelatedMenu.add_command(label="subscan", command=lambda:webtools.openSubScanner(bgcolor,textcolor)) 
@@ -109,7 +125,7 @@ def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variat
 
     tk.Label(text="BRUTE FORCE 😛", bg=bgcolor, font=font, fg=textcolor).pack()
 
-    keywordsLabel= tk.Label(text=f"KEYWORDS: {keystring}", bg=bgcolor, fg=textcolor, font=font)
+    keywordsLabel= tk.Message(text=f"KEYWORDS: {keystring}", bg=bgcolor, fg=textcolor, font=font)
     keywordsLabel.pack()
 
     addKeywords = tk.Entry(root, bg=bgcolor, fg=textcolor, font=font)
@@ -150,24 +166,35 @@ def plotGraph(currentChecked, keystring, checked):
     pyplot.bar(0,0,0,color=graph_settings["colors"]["found"], label = "found")
     pyplot.bar(0,0,0,color=graph_settings["colors"]["scanned"], label = "scanned")
 
+    x = []
+    foundy = []
+    failedy = []
 
     for i, v in enumerate(checked):
-        if v["failed"] > v["found"]:
-            pyplot.bar(i,i,1,color=graph_settings["colors"]["scanned"])
-            pyplot.bar(i,v["failed"],1,color=graph_settings["colors"]["failed"])
-            pyplot.bar(i,v["found"],1,color=graph_settings["colors"]["found"])
-        else:
-            pyplot.bar(i,i,1,color=graph_settings["colors"]["scanned"])
-            pyplot.bar(i,v["found"],1,color=graph_settings["colors"]["found"])
-            pyplot.bar(i,v["failed"],1,color=graph_settings["colors"]["failed"])
+        x.append(i)
+        foundy.append(v["found"])
+        failedy.append(v["failed"])
+#        if v["failed"] > v["found"]:
+#            pyplot.bar(i,i,1,color=graph_settings["colors"]["scanned"])
+#            pyplot.bar(i,v["failed"],1,color=graph_settings["colors"]["failed"])
+#            pyplot.bar(i,v["found"],1,color=graph_settings["colors"]["found"])
+#        else:
+#            pyplot.bar(i,i,1,color=graph_settings["colors"]["scanned"])
+#            pyplot.bar(i,v["found"],1,color=graph_settings["colors"]["found"])
+#            pyplot.bar(i,v["failed"],1,color=graph_settings["colors"]["failed"])
 
     pyplot.legend(loc='upper left', shadow=False, facecolor='lightgray')
 
-    pyplot.plot()
+    pyplot.fill_between(x,x, color=graph_settings["colors"]["scanned"])
+    pyplot.fill_between(x,foundy, color=graph_settings["colors"]["found"])
+    pyplot.fill_between(x,failedy, color=graph_settings["colors"]["failed"])
+
+    pyplot.title("GRAPH")
     pyplot.show()
 
 def create_theme():
-    import createtheme
+    os.system("python createtheme.py")
+#    os.startfile("createtheme.py")
 
 def openSettings(root):
     window = tk.Tk()

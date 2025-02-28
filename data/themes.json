@@ -57,6 +57,12 @@
             "bg": "dodgerblue4",
             "fg": "black",
             "font": "Verdana"
+        },
+        {
+            "name": "gray",
+            "bg": "#464646",
+            "fg": "#ffffff",
+            "font": "Calibri"
         }
     ],
     "cartoons": [
@@ -117,6 +123,12 @@
             "bg": "light pink",
             "fg": "deep sky blue",
             "font": "Arial"
+        },
+        {
+            "name": "mint",
+            "bg": "#c1ffe1",
+            "fg": "#00773f",
+            "font": "Rockwell"
         }
     ],
     "mythical": [

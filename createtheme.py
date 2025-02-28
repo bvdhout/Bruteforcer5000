@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import font, ttk, colorchooser
-import json, ctypes, simplejson
+import json, simplejson
 
 bgcolor = "#ffffff"
 fgcolor = "#000000"
@@ -63,6 +63,7 @@ def change_color(colorvalue, button):
 root = Tk() 
 root.geometry( "200x250" ) 
 root.config(bg="#ffffff")
+root.title("Theme Creator")
 
 #   img = PhotoImage(file='./data/empty-bucket.png')
 #   root.iconphoto(True, img)
@@ -112,5 +113,3 @@ Button(root, command=update, text="test", bg=bgcolor, fg=fgcolor).pack()
 Button(root, command=create, bg=bgcolor, fg=fgcolor, text="Create").pack()
 
 root.mainloop()
-
-bgcolor,fgcolor,clicked.get(),nameValue.get()
