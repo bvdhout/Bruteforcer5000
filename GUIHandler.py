@@ -174,14 +174,6 @@ def plotGraph(currentChecked, keystring, checked):
         x.append(i)
         foundy.append(v["found"])
         failedy.append(v["failed"])
-#        if v["failed"] > v["found"]:
-#            pyplot.bar(i,i,1,color=graph_settings["colors"]["scanned"])
-#            pyplot.bar(i,v["failed"],1,color=graph_settings["colors"]["failed"])
-#            pyplot.bar(i,v["found"],1,color=graph_settings["colors"]["found"])
-#        else:
-#            pyplot.bar(i,i,1,color=graph_settings["colors"]["scanned"])
-#            pyplot.bar(i,v["found"],1,color=graph_settings["colors"]["found"])
-#            pyplot.bar(i,v["failed"],1,color=graph_settings["colors"]["failed"])
 
     pyplot.legend(loc='upper left', shadow=False, facecolor='lightgray')
 

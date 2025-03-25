@@ -7,7 +7,7 @@
 - [x] Brute force buckets or any website like slack or atlassian
 - [x] Scan subdomains using crt.sh servers
 - [x] Brute force sitemaps
-- [x] Switch between super awesomesauce themes
+- [x] Switch between and create super awesomesauce themes
 - [x] Do a reverse ip scan on any domain
 - [ ] Make a sandwich
 - [ ] Dominate the world
@@ -52,11 +52,23 @@ This is a simple description of my program for a more detailed and technical exp
 ### ChangeTheme: 
 * Updates bgcolor and textcolor variables to desired theme then loops through each widget to update it,
 
+### update:
+* Updates settings (font size, etc.)
+
+### showestimate:
+* Automatically runs when starting a scan, shows estimate of time and scanned links.
+
 ### startGUI: 
 * Creates all the widgets and the main window, this function is called from v2.py and returns all widgets,
 
 ### plotGraph: 
-* Takes the checked items and shows the existing links found over time,
+* Uses pyplot to create a line graph with the found, failed and total searched.
+
+### create_theme:
+* Uses os to open `createtheme.py` 
+
+### openSettings:
+* Speaks for itsself just opens the settings window
 
 ---
 ## webtools
@@ -114,6 +126,21 @@ This is a simple description of my program for a more detailed and technical exp
 
 ### decrypt: 
 * Goes through each character of the Entry given by the "openDecypher" function shifting them by the amount entered by user, finally returning the finished string where every character has shifted the right amount.
+
+## createtheme:
+>The theme creator window allowing you to easily select colours, catagory and font, being able to preview and create them with the click of a button
+
+### update:
+* Updates the window to the selected colours and font.
+
+### create:
+* Creates the theme and automatically adds it into `themes.json` in the selected category.
+
+### check_input:
+* This function is only used for the fonts dropdown menu, it checks what you have typed in the search box and changes the options in the dropdown accordingly.
+
+### change_color:
+* Simply used to open a tKinter colorchooser menu and change the button colour and the bgcolor (background) or fgcolor (textcolor/foreground) variable.
 
 ---
 ## txt files

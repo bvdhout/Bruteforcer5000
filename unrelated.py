@@ -22,7 +22,7 @@ def openDecypher():
     tk.Button(root,text="DECRYPT", bg="black", fg="white", command=lambda:decrypted.insert(0, decrypt(encrypted.get(), shift))).pack()
     tk.Button(root,text="ENCRYPT", bg="black", fg="white", command=lambda:encrypted.insert(0, decrypt(decrypted.get(), shift))).pack()
 
-    tk.Label(root,text="shift by", bg="black", fg="white").pack()
+    tk.Label(root,text="shift by (left)", bg="black", fg="white").pack()
 
     shift = tk.Entry(root, bg="black", fg="white")
     shift.pack()

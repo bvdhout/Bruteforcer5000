@@ -197,6 +197,12 @@
             "bg": "medium purple",
             "fg": "dark slate gray",
             "font": "Century Gothic"
+        },
+        {
+            "name": "owen",
+            "bg": "#dacdaf",
+            "fg": "#004a95",
+            "font": "8514oem"
         }
     ]
 }
