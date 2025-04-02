@@ -83,6 +83,12 @@
             "bg": "medium purple",
             "fg": "spring green",
             "font": "Tahoma"
+        },
+        {
+            "name": "Lorax",
+            "bg": "#ffb442",
+            "fg": "#6c4100",
+            "font": "Jokerman"
         }
     ],
     "sci-fi": [
