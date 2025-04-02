@@ -44,7 +44,7 @@ def searchCustom(base, maxthreads, keywords, bucket_variations):
     GUIHandler.showestimate(bucket_variations, base)
 
     threadlimit = int(maxthreads.get()) if maxthreads.get().isdigit() else 250
-    if not maxthreads.get().isdigit(): print("maxthreads is nog digits so set to 2mdat50")
+    if not maxthreads.get().isdigit(): print("maxthreads is nog digits so set to 250")
 
     for custom in bucket_variations:
         while threading.active_count() >= threadlimit:

@@ -89,11 +89,11 @@ def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variat
     all = bases
     all.append(atla_base)
 
-    settings.add_checkbutton(label="search buckets", command=lambda:searchCustom(bases, maxthreads, keywords, bucket_variations))
-    settings.add_checkbutton(label="search buckets+atlassian", command=lambda:searchCustom(all, maxthreads, keywords, bucket_variations))
-    settings.add_checkbutton(label="search slack",command=lambda:searchCustom([slack_base], maxthreads, keywords, bucket_variations))
-    settings.add_checkbutton(label="search atlassian",command=lambda:searchCustom([atla_base], maxthreads, keywords, bucket_variations))
-    settings.add_checkbutton(label="search custom", command=lambda:searchCustom([customBase.get()], maxthreads, keywords, bucket_variations))
+    settings.add_command(label="search buckets", command=lambda:searchCustom(bases, maxthreads, keywords, bucket_variations))
+    settings.add_command(label="search buckets+atlassian", command=lambda:searchCustom(all, maxthreads, keywords, bucket_variations))
+    settings.add_command(label="search slack",command=lambda:searchCustom([slack_base], maxthreads, keywords, bucket_variations))
+    settings.add_command(label="search atlassian",command=lambda:searchCustom([atla_base], maxthreads, keywords, bucket_variations))
+    settings.add_command(label="search custom", command=lambda:searchCustom([customBase.get()], maxthreads, keywords, bucket_variations))
     settings.add_command(label="show results", command=lambda:webtools.showResults(bgcolor,textcolor))
 
     unrelatedMenu.add_command(label="subscan", command=lambda:webtools.openSubScanner(bgcolor,textcolor)) 
