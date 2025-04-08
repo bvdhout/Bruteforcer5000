@@ -27,14 +27,14 @@ def checkBases(bucket_name, base, root, foundlabel):
 
     url = base.format(bucket_name)
 
-    checked.append({"found": len(resultList), "failed": len(failed)}) #len(failed)
+    checked.append({"found": len(resultList), "failed": len(failed)})
     
     if printall:
         print(url+"\n")
     
     try:
-        response = requests.get(url, timeout=timeout)  # 8 seconds timeout
-        response.raise_for_status()  # Raise HTTPError for bad responses (4xx and 5xx)
+        response = requests.get(url, timeout=timeout)  # usually 10 sec
+        response.raise_for_status()  # Raise HTTPError for bad responses
     except requests.exceptions.Timeout:
         print("Request timed out.")
         failed.append(url)
@@ -44,7 +44,7 @@ def checkBases(bucket_name, base, root, foundlabel):
         return
 
     if response.status_code == 200:
-        print(f"[+] Public Bucket Found: {url}")
+        print(f"[+] Public Subdomain Found: {url}")
         results.write(f"{url}\n")
         results.flush()
         

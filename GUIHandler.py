@@ -113,7 +113,7 @@ def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variat
 
         thememenu.add_cascade(label=category.capitalize(), menu=category_menu)
 
-    thememenu.add_command(label="Create theme", command=create_theme)
+    thememenu.add_command(label="Create theme", command=lambda:os.system("python createtheme.py"))
 
     menubar.add_cascade(label="settings", menu=file) 
     menubar.add_cascade(label="search", menu=settings)
@@ -184,10 +184,6 @@ def plotGraph(currentChecked, keystring, checked):
     pyplot.title("GRAPH")
     pyplot.show()
 
-def create_theme():
-    os.system("python createtheme.py")
-#    os.startfile("createtheme.py")
-
 def openSettings(root):
     window = tk.Tk()
     window.geometry("200x300")
@@ -205,9 +201,6 @@ def openSettings(root):
     timeout = tk.Entry(window,bg=bgcolor,fg=textcolor,font=font)
     timeout.insert(0,"10")
     timeout.pack()
-
-#    printall = tk.BooleanVar(value=True)
-#    tk.Checkbutton(window,text="Print only results?", variable=printall, onvalue=True, offvalue=False, command=lambda:print(printall.get())).pack()
 
     tk.Button(
         window, 
