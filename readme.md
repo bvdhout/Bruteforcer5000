@@ -12,7 +12,6 @@
 - [ ] Make a sandwich
 - [ ] Dominate the world
 - [ ] Order a pizza 
-- [ ] Outrun the immortal snail
 
 >This program can brute force websites by keyword (For example: Slack, Atlassian, Amazon Aws buckets), there is also a subdomain scanner built in using the crt.sh servers, a sitemap finder by brute force and a reverse ip scanner that works by domain
 
@@ -31,4 +30,4 @@
 3. Add more keywords in the GUI if needed
 4. If using a custom url base enter into the given entry
 5. Run by clicking the `search` button in the menubar and clicking on the appropriate command
-6. See results in `search` in the menubar or in `data/results.txt` or use any of the functions in the unrelated tab under the settings
+6. See results in `search` in the menubar or in `data/results.txt`, or use any of the functions in the unrelated tab under the settings
