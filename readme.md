@@ -31,3 +31,10 @@
 4. If using a custom url base enter into the given entry
 5. Run by clicking the `search` button in the menubar and clicking on the appropriate command and then pressing `scan` 
 6. See results in `search` in the menubar or in `data/results.txt`, or use any of the functions in the unrelated tab under the settings
+
+---
+
+> This program is not meant for malicious intents.
+
+## Licence
+Anyone can share and change this program however they like, as long as the original creator is mentioned or a link to this repo is added.
