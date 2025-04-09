@@ -34,7 +34,7 @@
 
 ---
 
-> This program is not meant for malicious intents.
+> This program is not meant for malicious intents. If used for such cases the author is in no way liable
 
 ## Licence
-Anyone can share and change this program however they like, as long as the original creator is mentioned or a link to this repo is added.
+See LICENSE file.
