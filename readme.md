@@ -29,5 +29,5 @@
 2. Run v2.py
 3. Add more keywords in the GUI if needed
 4. If using a custom url base enter into the given entry
-5. Run by clicking the `search` button in the menubar and clicking on the appropriate command
+5. Run by clicking the `search` button in the menubar and clicking on the appropriate command and then pressing `scan` 
 6. See results in `search` in the menubar or in `data/results.txt`, or use any of the functions in the unrelated tab under the settings
