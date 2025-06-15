@@ -86,11 +86,14 @@ def startGUI(keywords, searchCustom, bases, addKeyword, keystring, bucket_variat
     unrelatedMenu = tk.Menu(menubar, tearoff=False, background=bgcolor, fg=textcolor, bg=bgcolor)
     pause = tk.Menu(menubar, tearoff=False, background=bgcolor, fg=textcolor, bg=bgcolor)
 
-    all = bases
-    all.append(atla_base)
+    allatla, allslack = bases, bases
+    allatla.append(atla_base)
+    allslack.append(atla_base)
+    allslack.append(slack_base)
 
     settings.add_command(label="search buckets", command=lambda:searchCustom(bases, maxthreads, keywords, bucket_variations))
-    settings.add_command(label="search buckets+atlassian", command=lambda:searchCustom(all, maxthreads, keywords, bucket_variations))
+    settings.add_command(label="search buckets+atlassian", command=lambda:searchCustom(allatla, maxthreads, keywords, bucket_variations))
+    settings.add_command(label="search all", command=lambda:searchCustom(allslack, maxthreads, keywords, bucket_variations))
     settings.add_command(label="search slack",command=lambda:searchCustom([slack_base], maxthreads, keywords, bucket_variations))
     settings.add_command(label="search atlassian",command=lambda:searchCustom([atla_base], maxthreads, keywords, bucket_variations))
     settings.add_command(label="search custom", command=lambda:searchCustom([customBase.get()], maxthreads, keywords, bucket_variations))
