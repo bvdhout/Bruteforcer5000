@@ -38,3 +38,6 @@
 
 ## Licence
 See LICENSE file.
+
+## LEGAL
+See LEGAL file.
