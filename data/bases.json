@@ -1,0 +1,1 @@
+{"AmazonAWS": ["https://{}.s3.amazonaws.com"], "Google API": ["https://{}.storage.googleapis.com"], "Slack": ["https://{}.slack.com"], "Atlassian": ["https://{}.atlassian.net"]}

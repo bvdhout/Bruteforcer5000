@@ -10,10 +10,11 @@ result = ""
 resultList = []
 checked = []
 failed = []
+foundNum = 0
 
 printall = False
 
-timeout = 10
+timeout = 5
 
 def loadVariations(varations, word, bucket_variations):
     for variation in varations:
@@ -23,7 +24,7 @@ def loadVariations(varations, word, bucket_variations):
         bucket_variations.append(variation+"-"+word)
 
 def checkBases(bucket_name, base, root, foundlabel):
-    global result
+    global result, foundNum
 
     url = base.format(bucket_name)
 
@@ -52,6 +53,7 @@ def checkBases(bucket_name, base, root, foundlabel):
         resultList.append(url)
         root.update()
         response.close()
+        foundNum += 1
 
     response.close()
 
