@@ -1,5 +1,5 @@
 import tkinter as tk
-import json, ctypes, os, threading
+import json, ctypes, os, threading, time
 import matplotlib.pyplot as pyplot
 import scripts.webtools as webtools
 import scripts.unrelated as unrelated
@@ -209,12 +209,20 @@ def add_rem_base(base):
         else:
             selected_bases.remove(var)
 
+def save_results():
+    with open ("./data/results.txt", "r") as f:
+        data = f.read()
+
+    with open (f"./saves/{round(time.time())}_{len(data.splitlines())}.txt", "w") as f:
+        f.write(data)
+        f.close()
+
 def startGUI(keywords, searchCustom, addKeyword, keystring, bucket_variations, currentChecked, checked):
     global checkbuttons
     root = tk.Tk()
     root.title("WEB TOOLS")
 
-    root.geometry("210x150")
+    root.geometry("255x150")
     root.configure(bg=bgcolor)
     img = tk.PhotoImage(file='./data/empty-bucket.png')
 
@@ -224,32 +232,33 @@ def startGUI(keywords, searchCustom, addKeyword, keystring, bucket_variations, c
 
     menubar = tk.Menu(root)
   
-    file = tk.Menu(menubar, tearoff=False, background=bgcolor, fg=textcolor, bg=bgcolor)
+    file = tk.Menu(menubar, tearoff=True, background=bgcolor, fg=textcolor, bg=bgcolor)
     settings = tk.Menu(menubar, tearoff=True)
-    thememenu = tk.Menu(menubar, tearoff=False, background=bgcolor, fg=textcolor, bg=bgcolor)
-    unrelatedMenu = tk.Menu(menubar, tearoff=False, background=bgcolor, fg=textcolor, bg=bgcolor)
+    tools = tk.Menu(menubar, tearoff=True, background=bgcolor, fg=textcolor, bg=bgcolor)
+    thememenu = tk.Menu(menubar, tearoff=True, background=bgcolor, fg=textcolor, bg=bgcolor)
     pause = tk.Menu(menubar, tearoff=False, background=bgcolor, fg=textcolor, bg=bgcolor)
 
     baseOptions = tk.Menu(menubar, tearoff=False)
 
-    baseOptions.add_command(label='all', command=lambda: add_rem_base(allBases.items()))
     for name, base in allBases.items():
         button = baseOptions.add_checkbutton(label=name, command=lambda base=base: add_rem_base(base))
         
         checkbuttons.append(button)
 
-    settings.add_command(label="add custom", command=lambda:add_base(baseOptions))
     settings.add_command(label="start scan", command=lambda:searchCustom(selected_bases, maxthreadsVar, keywords, bucket_variations))
     settings.add_command(label="show results", command=lambda:webtools.showResults(bgcolor,textcolor))
+    settings.add_command(label="save results", command=save_results)
+    settings.add_command(label="add custom", command=lambda:add_base(baseOptions))
 
-    unrelatedMenu.add_command(label="subscan", command=lambda:webtools.openSubScanner(bgcolor,textcolor)) 
-    unrelatedMenu.add_command(label="sitemap", command=lambda:webtools.sitemap(bgcolor, textcolor))
-    unrelatedMenu.add_command(label="reverse ip", command=lambda:webtools.reverse_ip(bgcolor,textcolor))
+    tools.add_command(label="subscan", command=lambda:webtools.openSubScanner(bgcolor,textcolor)) 
+    tools.add_command(label="sitemap", command=lambda:webtools.sitemap(bgcolor, textcolor))
+    tools.add_command(label="scrape s3", command=lambda:webtools.scrapeS3(bgcolor,textcolor))
+    tools.add_command(label="reverse ip", command=lambda:webtools.reverse_ip(bgcolor,textcolor))
     file.add_command(label="plot graph", command = lambda:plotGraph(currentChecked,keystring, webtools.checked))
     file.add_command(label="exit", command=root.quit)
     file.add_command(label="open settings", command=lambda:openSettings(root))
 
-    unrelatedMenu.add_command(label="decypher", command=unrelated.openDecypher)
+    tools.add_command(label="decypher", command=unrelated.openDecypher)
 
     for category, items in themes.items():
         category_menu = tk.Menu(thememenu, tearoff=False)
@@ -263,9 +272,9 @@ def startGUI(keywords, searchCustom, addKeyword, keystring, bucket_variations, c
 
     menubar.add_cascade(label="settings", menu=file) 
     menubar.add_cascade(label="search", menu=settings)
+    menubar.add_cascade(label="tools", menu=tools)
     menubar.add_cascade(label="theme", menu=thememenu)
     menubar.add_cascade(label="pause", menu=pause)
-    file.add_cascade(label="unrelated", menu=unrelatedMenu)
     settings.add_cascade(label="bases", menu=baseOptions)
 
     root.config(menu=menubar) 
@@ -295,7 +304,7 @@ def plotGraph(currentChecked, keystring, checked):
     pyplot.xlabel('SEARCHED')
     pyplot.title(keystring)
 
-    pyplot.bar(0,0,0,color=graph_settings["colors"]["failed"],label = "failed")
+    pyplot.bar(0,0,0,color=graph_settings["colors"]["failed"],label = "timeout")
     pyplot.bar(0,0,0,color=graph_settings["colors"]["found"], label = "found")
     pyplot.bar(0,0,0,color=graph_settings["colors"]["scanned"], label = "scanned")
 

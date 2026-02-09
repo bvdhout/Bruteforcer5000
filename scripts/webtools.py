@@ -5,6 +5,9 @@ results = open("./data/results.txt", "w")
 variations = open("./data/variations.txt", "r").read().split()
 
 subdomain_base = "https://crt.sh/?q={}&output=json"
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+}
 
 result = ""
 resultList = []
@@ -34,12 +37,10 @@ def checkBases(bucket_name, base, root, foundlabel):
         print(url+"\n")
     
     try:
-        response = requests.get(url, timeout=timeout)  # usually 10 sec
+        response = requests.head(url, timeout=timeout, headers=HEADERS)  # usually 10 sec
         response.raise_for_status()  # Raise HTTPError for bad responses
     except requests.exceptions.Timeout:
-        print("Request timed out.")
         failed.append(url)
-
         return
     except requests.exceptions.RequestException as e:
         return
@@ -138,29 +139,62 @@ def openSubScanner(bgcolor,textcolor): # die van enzo is superieur dit is simpel
 
     window.mainloop()
 
+def scrapeS3(bgcolor, textcolor):
+    def start (url):
+        url = f'https://{domain.get()}.s3.amazonaws.com'
+
+        try:
+            response = requests.head(url, timeout=timeout, headers=HEADERS)
+            response.raise_for_status()
+        except requests.exceptions.Timeout: 
+            print("Request timed out.")
+            return
+        except requests.exceptions.RequestException as e:
+            print(e)
+            return
+
+        if response.status_code == 200:
+            print(response.text, response.headers, response.raw)
+        else:
+            print(response.status_code)
+    window = tk.Tk()
+
+    window.title("SCRAPE S3")
+    window.geometry("200x75")
+    window.configure(bg=bgcolor)
+
+    tk.Label(window, text="BUCKET NAME", bg=bgcolor, fg=textcolor).pack()
+    domain = tk.Entry(window, bg=bgcolor, fg=textcolor)
+    domain.insert(0, "example")
+    domain.pack()
+
+    button = tk.Button(window, text="SCAN", bg=bgcolor, fg=textcolor, command=lambda url=domain.get(): start(url,))
+    button.pack()
+
+    window.mainloop()
+
 def sitemap(bgcolor, textcolor):
 
     def find_sitemap():
         global result
-        sitemaps = ["sitemap.xml", "sitemap", "sitemap.txt", "sitemap.html", "sitemap.xml.gz", "sitemap_index.xml", "sitemap.php", "sitemapindex.xml", "sitemap.gz"]
+        sitemaps = ["sitemap.xml", "sitemap", "sitemap.txt", "sitemap.html"]
         scanDomain = domain.get()
 
         homepage = "https://www.{}/".format(scanDomain)
 
         for base in sitemaps:
-            url = "https://www.{}/".format(scanDomain)+base
-            failed = False
+            url = homepage+base
             
             try:
-                json = requests.get(url, timeout=timeout)
-                json.raise_for_status()
+                response = requests.get(url, timeout=timeout)
+                response.raise_for_status()
             except requests.exceptions.Timeout:
-                print("link timed out after 5 seconds")
-                failed = True
+                print("Request timed out.")
+                continue
             except requests.exceptions.RequestException as e:
-                failed = True
+                continue
 
-            if not failed and json.status_code == 200 and not json.history:
+            if response.status_code == 200 and not response.history:
                 result += url+"\n"
                 results.write("{}\n".format(url))
 
@@ -170,14 +204,29 @@ def sitemap(bgcolor, textcolor):
                 results.flush()
                 window.update()
 
-            if not failed:
-                json.close()
-            
-            searchButton.config(text="SEARCH")
+        try:
+            response = requests.get(homepage+'/robots.txt', timeout=timeout)
+            response.raise_for_status()
+        except requests.exceptions.Timeout:
+            print("Request timed out.")
+            return
+        except requests.exceptions.RequestException as e:
+            return
 
-        if result == "":
-            label.config(text= "SITEMAPS: no sitemaps found")
-            window.update()
+        if response.status_code == 200 and not response.history:
+            for line in response.text.split("\n"):
+                if "Sitemap:" in line:
+                    if not line.split(" ")[1] in resultList:
+                        url = line.split(" ")[1]
+                        result += url+"\n"
+                        results.write("{}\n".format(url))
+
+                        label.config(text="SITEMAPS: \n"+result)
+
+                        results.flush()
+                        window.update()
+
+        searchButton.config(text="SEARCH")
     
     window = tk.Tk()
 
