@@ -26,11 +26,10 @@
 ## Program use
 1. Use the terminal to install dependencies
 2. Change/Add keywords to `data/keywords.txt`
-2. Run v2.py
+2. Run main.pyw
 3. Add more keywords in the GUI if needed
-4. If using a custom url base enter into the given entry
-5. Run by clicking the `search` button in the menubar and clicking on the appropriate command and then pressing `scan` 
-6. See results in `search` in the menubar or in `data/results.txt`, or use any of the functions in the unrelated tab under the settings
+4. Run by clicking the `search` button in the menubar and clicking on the appropriate command.
+5. See results in `search` in the menubar or in `data/results.txt`, or use any of the functions in the unrelated tab under the settings
 
 ---
 
